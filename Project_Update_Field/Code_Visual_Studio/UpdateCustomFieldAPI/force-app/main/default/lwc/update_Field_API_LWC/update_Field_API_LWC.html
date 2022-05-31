@@ -1,0 +1,59 @@
+<template>  
+    <lightning-card title="Mettre à jour un champ: ">
+      <lightning-input
+                  type="search"
+                  onchange={handleKeyChange}
+                  class="slds-m-bottom_small"          
+                  label="Search"
+                  value={searchKey}>
+              </lightning-input>
+      <lightning-button variant="brand" label="Mettre à jour" title="Primary action" onclick={majField} class="slds-m-left_x-small"></lightning-button>
+      <lightning-button variant="destructive" label="Supprimer" title="Destructive action" onclick={deleteRecord} class="slds-m-left_x-small"></lightning-button>
+   
+      <div class="slds-box">  
+        <lightning-datatable
+                  data-id="table"
+                  key-field="Id"
+                  data={data}
+                  columns={columns}
+        >
+        </lightning-datatable>
+        </br>
+   
+        <lightning-layout horizontal-align="space">
+          <lightning-layout-item flexibility="auto">
+              <lightning-button
+                  label="Précédente"
+                  icon-name="utility:chevronleft"
+                  onclick={previousHandler}>
+              </lightning-button>
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="auto">
+              Page {page} sur {totalPage}
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="auto">
+              <lightning-button
+                  label="Suivante"
+                  icon-name="utility:chevronright"
+                  icon-position="right"
+                  onclick={nextHandler}>
+              </lightning-button>
+          </lightning-layout-item>
+      </lightning-layout>
+      </div>  
+      <template if:true={error}>
+        <p>Le Custom Setting a des valeurs invalides</p>
+      </template>
+      <template if:true={res}>
+        <p>Les champs ont été mis à jour</p>
+      </template>
+      <template if:true={error1}>
+        <template for:each={res3} for:item="cs">
+          <p key={cs}>{cs} à des paramètres invalides </p>
+        </template>
+      </template>
+      <template if:true={error4}>
+        <p>Le Custom Setting a des valeurs invalides </p>
+      </template>
+    </lightning-card>  
+  </template>
