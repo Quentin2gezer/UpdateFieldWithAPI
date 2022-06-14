@@ -48,6 +48,11 @@ public class tgz_testComponentUpdateFieldAPI {
         setting.varSecondSearchedObject1__c = 'main';
         listCS.add(setting);
         insert listCS;
+        
+        tgz_Debug_LogV2__c modeDebug = new tgz_Debug_LogV2__c();
+        modeDebug.Activation_Mode_Debug__c = true;
+        modeDebug.Name = 'test';
+        insert modeDebug;
           
         Test.startTest();
         
