@@ -4,7 +4,7 @@ import { LightningElement,wire,track, api } from 'lwc';
  import updateObject from '@salesforce/apex/tgz_componentUpdateFieldAPI.updateObject';
  import getMajAutomaticallyCS from '@salesforce/apex/tgz_componentUpdateFieldAPI.getMajAutomaticallyCS';
  import getCS from '@salesforce/apex/tgz_componentUpdateFieldAPI.getCS';
- 
+ import getMajAutoCS from '@salesforce/apex/tgz_componentUpdateFieldAPI.getMajAutoCS';
  
  const columns=[  
   {label:'Nom Custom Setting',fieldName:'Name', type:'text', cellAttributes: {
@@ -87,7 +87,7 @@ import { LightningElement,wire,track, api } from 'lwc';
     }
     }
  
-   majField(){  0
+   majField(){  
     var selectedRecords2 = this.template.querySelector("lightning-datatable").getSelectedRows();
     updateObject({ nameCustomSettingMAJ: selectedRecords2 })
     .then(result=>{
@@ -124,16 +124,29 @@ import { LightningElement,wire,track, api } from 'lwc';
  
  connectedCallback() {
  
-  getMajAutomaticallyCS()
-  .then(result=>{  
-      this.res2 = result;
-      alert('Les champs sont mis à jours');
+  getMajAutoCS()
+    .then(result=>{  
+      if(result > 0)
+      {
+        getMajAutomaticallyCS()
+        .then(result=>{  
+          this.res2 = result;
+          alert('Les champs sont mis à jours');
  
-  })  
-  .catch(error=>{  
-     this.error2 = error;
-     alert('Paramètre(s) invalide(s)');
-  })}
+        })  
+        .catch(error=>{  
+        this.error2 = error;
+        alert('Paramètre(s) invalide(s)');
+        })
+      }
+ 
+      })  
+    .catch(error=>{  
+      this.error2 = error;
+      alert('Paramètre(s) invalide(s)');
+    })
+  }
+  
  
  
   handleKeyChange( event ) {
@@ -190,3 +203,4 @@ displayRecordPerPage(page){
 }
  
 }  
+ 
