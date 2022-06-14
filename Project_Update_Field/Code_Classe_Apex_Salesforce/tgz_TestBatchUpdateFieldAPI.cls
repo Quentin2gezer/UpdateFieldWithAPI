@@ -18,6 +18,11 @@ public class tgz_testBatchUpdateField{
         setting.Update_Every_Hour__c = true;
         insert setting;
         
+        tgz_Debug_LogV2__c modeDebug = new tgz_Debug_LogV2__c();
+        modeDebug.Activation_Mode_Debug__c = true;
+        modeDebug.Name = 'test';
+        insert modeDebug;
+        
 		Test.startTest();
 			System.Test.setMock(HttpCalloutMock.class, new tgz_mockCallAPI()); 
             tgz_BatchUpdateField obj = new tgz_BatchUpdateField();
